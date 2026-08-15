@@ -17,9 +17,14 @@
 ### 方式 A（推荐）：`dsh plugin`
 
 ```bash
-# 在插件目录外执行
+# 直接从 GitHub 安装（推荐）
+dsh plugin --profile web add github:ddll8023/dsh-access-mode
+
+# 或先 clone 到本地，再安装本地路径
+git clone https://github.com/ddll8023/dsh-access-mode.git
 dsh plugin --profile web add /绝对路径/dsh-access-mode
-# 如果插件已经发布到 registry，也可以使用包名：
+
+# 已发布到 npm registry 后也可使用包名：
 dsh plugin --profile web add dsh-access-mode
 ```
 

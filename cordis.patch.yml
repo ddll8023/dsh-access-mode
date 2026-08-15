@@ -1,0 +1,16 @@
+# dsh-access-mode bundle patch.
+#
+# The native Permission Presets service is only a product-level selector over
+# the independent approval and sandbox services. Disable that selector and its
+# UI, then insert this package's host row. The access-mode package keeps the
+# native approval, sandbox, tools, and session rows intact.
+
+- id: permission
+  disabled: true
+
+- id: ui-permission
+  disabled: true
+
+- insert:
+    - id: access-mode
+      name: 'dsh-access-mode'

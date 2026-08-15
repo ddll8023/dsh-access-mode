@@ -1,0 +1,40 @@
+{
+  "name": "dsh-access-mode",
+  "version": "0.1.0",
+  "description": "Standalone DeepSeek Harness access-mode plugin with Default, No Edit, and Auto modes",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/client.js.map",
+    "src",
+    "scripts",
+    "cordis.patch.yml",
+    "README.md",
+    "test"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "slots",
+        "remote",
+        "remote.commands"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build-client.mjs",
+    "test": "node --test test/*.test.js"
+  },
+  "license": "MIT"
+}

@@ -179,7 +179,7 @@ function apply(ctx) {
     },
     (props) => React.createElement(AccessModeControl, {
       ...props,
-      execute: (sessionId, line) => ctx.remote.commands.execute(sessionId, line),
+      execute: (sessionId, line) => ctx.remote.commands.execute(sessionId, line, []),
     }),
   ));
 }

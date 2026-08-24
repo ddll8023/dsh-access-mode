@@ -1,12 +1,29 @@
 # dsh-access-mode bundle patch.
 #
-# The native Permission Presets service is only a product-level selector over
-# the independent approval and sandbox services. Disable that selector and its
-# UI, then insert this package's host row. The access-mode package keeps the
-# native approval, sandbox, tools, and session rows intact.
+# Reconfigure the native Permission Presets service with this package's three
+# mode bundles. The current Web composer consumes its `permissions` projection
+# directly, so the native service remains mounted; only its separate settings
+# UI is disabled. The host row adds the extra Default-mode access gate.
 
 - id: permission
-  disabled: true
+  config:
+    presets:
+      default:
+        sandbox: workspace-write
+        approval: ask
+        name: Default
+        description: Read-only tools and conservative read-only Bash run automatically; mutations require approval.
+      no-edit:
+        sandbox: danger-full-access
+        approval: ask
+        name: No Edit
+        description: Only edit and write require approval; approved operations use full file access.
+      auto:
+        sandbox: danger-full-access
+        approval: never
+        name: Auto
+        description: All tool calls run without approval prompts.
+    defaultPreset: no-edit
 
 - id: ui-permission
   disabled: true

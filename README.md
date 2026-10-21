@@ -2,7 +2,7 @@
 
 > 给 DeepSeek Harness（DSH）会话提供 Default / No Edit / Auto 三种访问模式，控制 AI 能自动执行什么、什么需要审批、使用哪种 Sandbox。
 
-- 兼容版本：DSH `>= 0.1.0-rc.6`
+- 兼容版本：DSH `0.2.1-rc.2`
 - License：MIT
 
 ## 功能特性
@@ -98,13 +98,15 @@ Web composer 中的下拉选择器会执行同一个 session-scoped 命令：
 - `sandbox/mode`：`workspace-write` 或 `danger-full-access`
 - `approval/policy`：由原生 Approval service 写入的 `ask` 或 `never`
 
+原生 permission-preset 服务保留 `auto` 作为其可选 Auto-review integration 的固定身份，禁止同名配置预设，因此 **Auto** 模式的预设键存为 `danger-full-access`（与其 Sandbox 一致）；对外命令与标签仍是 `auto` / **Auto**。
+
 因此文件系统、Bash 和其它受 Sandbox 保护的能力会在每次执行时读取同一个会话模式；切换模式或恢复历史会话后不会回到旧的 Sandbox 设置。
 
 对于没有插件模式事件的旧 session，插件会根据已有 Approval 状态初始化：已有 `never` 状态视为 Auto，其它情况视为 No Edit，然后补齐对应的 Sandbox 和 Approval 状态。
 
 ## 安全说明
 
-- 插件目标版本为 DeepSeek Harness `0.1.0-rc.6`。
+- 插件目标版本为 DeepSeek Harness `0.2.1-rc.2`。
 - No Edit 和 Auto 会使用 `danger-full-access`，这是为了让自定义模式不再被原生 `workspace-write` 路径边界覆盖；请只对可信 session 使用这两个模式。
 - Default 仍保留 `workspace-write` 边界。需要访问 workspace 外文件时，应明确切换到 No Edit 并批准编辑操作，或把目标文件放入当前 session workspace。
 - `danger-full-access` 只取消 DSH 文件 Sandbox 的路径限制，不等于绕过操作系统权限、容器权限或远程执行环境本身的限制。

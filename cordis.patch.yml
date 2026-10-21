@@ -18,7 +18,10 @@
         approval: ask
         name: No Edit
         description: Only edit and write require approval; approved operations use full file access.
-      auto:
+      # The native service reserves "auto" for its optional Auto-review
+      # integration and rejects it as a configured preset key, so the Auto
+      # mode persists under the full-access key that matches its sandbox.
+      danger-full-access:
         sandbox: danger-full-access
         approval: never
         name: Auto
